@@ -1,0 +1,13 @@
+name = "fortune-telling-backend"
+main = "src/index.ts"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Google Cloud Project ID
+GOOGLE_PROJECT_ID = "fortune-telling-484316"
+# BigQuery Dataset ID
+BIGQUERY_DATASET_ID = "fortune_telling_db"
+
+# Secret (to be set via `wrangler secret put GOOGLE_SERVICE_ACCOUNT_JSON`)
+# GOOGLE_SERVICE_ACCOUNT_JSON = "..."

@@ -1,0 +1,9 @@
+node_modules
+dist
+.wrangler
+.env
+*.json
+!package.json
+!tsconfig.json
+!wrangler.toml
+.DS_Store

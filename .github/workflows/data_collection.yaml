@@ -1,0 +1,33 @@
+name: Daily Fortune Data Collection
+
+on:
+  schedule:
+    # Run at 00:00 JST (15:00 UTC)
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  collect-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install Dependencies
+      run: |
+        pip install requests google-cloud-bigquery
+        
+    - name: Run Collector Script
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+      run: |
+        # Write secret to file
+        echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp_key.json
+        export GOOGLE_APPLICATION_CREDENTIALS="gcp_key.json"
+        
+        python scripts/data_collector.py
