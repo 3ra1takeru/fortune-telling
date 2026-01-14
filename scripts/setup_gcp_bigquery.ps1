@@ -3,12 +3,20 @@
 
 $ProjectId = "fortune-telling-484316"
 $DatasetId = "fortune_telling_db"
-$SchemaFile = "../schema/bigquery_schema.sql"
+$SchemaFile = Join-Path $PSScriptRoot "../schema/bigquery_schema.sql"
 $Location = "US" # or "asia-northeast1"
 
 Write-Host "Setting up BigQuery Environment for: $ProjectId"
 
-# Check if bq command exists
+# Check if bq command exists, if not, try adding known path
+if (-not (Get-Command "bq" -ErrorAction SilentlyContinue)) {
+    $SdkPath = "$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin"
+    if (Test-Path $SdkPath) {
+        Write-Host "Adding Cloud SDK to PATH: $SdkPath"
+        $env:PATH = "$SdkPath;$env:PATH"
+    }
+}
+
 if (-not (Get-Command "bq" -ErrorAction SilentlyContinue)) {
     Write-Error "Google Cloud SDK ('bq' command) not found. Please install/authenticate gcloud CLI."
     exit 1
@@ -31,7 +39,8 @@ $SqlContent = Get-Content $SchemaFile -Raw
 
 # Replace placeholder if needed or just run (The schema uses hardcoded dataset name `fortune_telling_db`)
 # We execute the DDL script
-bq query --project_id=$ProjectId --use_legacy_sql=false $SqlContent
+# Pipe the content to bq to avoid command line length/parsing issues
+$SqlContent | bq query --project_id=$ProjectId --use_legacy_sql=false
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Schema applied successfully!" -ForegroundColor Green
