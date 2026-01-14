@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
 
 :root {
   /* Google AI Studio Palette */
@@ -10,7 +10,8 @@
 
   /* Text */
   --text-primary: #E3E3E3;
-  --text-secondary: #A4A4A4;
+  --text-secondary: #C4C7C5;
+  /* Lighter for JP readability */
   --text-disabled: #444746;
 
   /* Accents */
@@ -37,12 +38,13 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   background-color: var(--bg-app);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.7;
+  /* Increased for JP text */
 }
 
 h1,
@@ -55,6 +57,8 @@ h6 {
   /* Medium */
   letter-spacing: normal;
   color: var(--text-primary);
+  font-feature-settings: "palt";
+  /* Proportional metrics for cleaner JP */
 }
 
 /* Typography Utilities */
@@ -133,7 +137,7 @@ h6 {
   color: var(--text-primary);
   padding: 12px 16px;
   border-radius: var(--radius-sm);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 14px;
   outline: none;
   transition: all 0.2s ease;

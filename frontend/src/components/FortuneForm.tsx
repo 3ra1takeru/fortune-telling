@@ -37,12 +37,12 @@ export default function FortuneForm({ onSubmit, isLoading }: Props) {
     return (
         <div className="ai-card max-w-2xl mx-auto">
             <h2 className="text-xl font-medium mb-6 pb-4 border-b border-[#444746]" style={{ color: 'var(--text-primary)' }}>
-                Enter Your Details
+                基本情報の入力
             </h2>
             <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div className="input-group">
-                        <label className="input-label">Name (氏名)</label>
+                        <label className="input-label">お名前</label>
                         <input
                             type="text"
                             name="name"
@@ -55,21 +55,21 @@ export default function FortuneForm({ onSubmit, isLoading }: Props) {
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">Gender (性別)</label>
+                        <label className="input-label">性別</label>
                         <select
                             name="gender"
                             className="ai-input"
                             value={formData.gender}
                             onChange={handleChange}
                         >
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                            <option value="other">Other</option>
+                            <option value="female">女性</option>
+                            <option value="male">男性</option>
+                            <option value="other">その他</option>
                         </select>
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">Birth Date (生年月日)</label>
+                        <label className="input-label">生年月日</label>
                         <input
                             type="date"
                             name="birthDate"
@@ -81,7 +81,7 @@ export default function FortuneForm({ onSubmit, isLoading }: Props) {
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">Birth Time (出生時間 - Optional)</label>
+                        <label className="input-label">出生時間 (不明な場合は空欄)</label>
                         <input
                             type="time"
                             name="birthTime"
@@ -92,40 +92,40 @@ export default function FortuneForm({ onSubmit, isLoading }: Props) {
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">Birth Place (出生地)</label>
+                        <label className="input-label">出生地 (都道府県/都市)</label>
                         <input
                             type="text"
                             name="birthPlace"
                             className="ai-input"
-                            placeholder="Tokyo, Japan"
+                            placeholder="東京都 千代田区"
                             value={formData.birthPlace}
                             onChange={handleChange}
                         />
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">Blood Type (血液型)</label>
+                        <label className="input-label">血液型</label>
                         <select
                             name="bloodType"
                             className="ai-input"
                             value={formData.bloodType}
                             onChange={handleChange}
                         >
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="O">O</option>
-                            <option value="AB">AB</option>
+                            <option value="A">A型</option>
+                            <option value="B">B型</option>
+                            <option value="O">O型</option>
+                            <option value="AB">AB型</option>
                         </select>
                     </div>
                 </div>
 
-                <div className="pt-4 text-right">
+                <div className="pt-6 text-right">
                     <button
                         type="submit"
                         disabled={isLoading}
                         className="btn-primary"
                     >
-                        {isLoading ? 'Processing...' : 'Generate Reading'}
+                        {isLoading ? '解析中...' : '鑑定する'}
                     </button>
                 </div>
             </form>
