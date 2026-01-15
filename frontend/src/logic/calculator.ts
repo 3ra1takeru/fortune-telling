@@ -140,8 +140,8 @@ export function calculateFortune(birthDateStr: string, birthTimeStr?: string) {
     // For zodiac, we use Apparent Geocentric Ecliptic coordinates usually.
     // Current library handles this reasonably well for "Good Enough" astrology.
 
-    const sunSign = getZodiac(sunPos.EclipticLongitude);
-    const moonSign = getZodiac(moonPos.EclipticLongitude);
+    const sunSign = getZodiac(sunPos.elon);
+    const moonSign = getZodiac(moonPos.lon);
     const ascendantSign = "計算中 (時刻依存)"; // Requires Geo location, complex. Skip detailed ASC for now or randomize slightly if unknown.
 
     // Oriental
@@ -154,7 +154,7 @@ export function calculateFortune(birthDateStr: string, birthTimeStr?: string) {
     const mayan = getMayanKin(d);
 
     // Shukuyo
-    const shukuyoInn = getShukuyo(moonPos.EclipticLongitude);
+    const shukuyoInn = getShukuyo(moonPos.lon);
 
     return {
         western: {
