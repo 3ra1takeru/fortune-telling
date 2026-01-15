@@ -1,10 +1,7 @@
--- BigQuery Schema for Ultimate Fortune Telling App (Deep Dive + Animal + Shukuyo + Zi Wei)
-
--- Dataset: fortune_telling_db
-
+-- BigQuery Schema
+-- Definition for Ultimate Fortune Telling App
 -- ==========================================
 -- 1. Western Astrology (西洋占星術 - 深層)
--- ==========================================
 -- (Existing tables retained: master_zodiac_degrees, master_aspects, master_houses)
 CREATE OR REPLACE TABLE `fortune_telling_db.master_zodiac_degrees` (
     sign_name STRING, degree INT64,

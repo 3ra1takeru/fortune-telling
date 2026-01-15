@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './index.css'
 import FortuneForm, { type FormData } from './components/FortuneForm'
+import { calculateFortune } from './logic/calculator'
 
-// Full-scope Mock Result Type
+// Mock result type
 type FortuneResult = {
   mainText: string;
   luckyColor: string;
@@ -98,95 +99,27 @@ function App() {
     setLoading(true);
     console.log("Submitting:", data);
 
-    // Simulate API delay with FULL SCOPE mock data
-    setTimeout(() => {
-      setResult({
-        mainText: "【統合鑑定結果】\nあなたの魂は「変革」と「伝統」の融合を求めています。西洋占星術では独創的な革命家を示唆しつつ、東洋の星々はあなたが晩年に向けて精神的指導者となることを予言しています。\n2026年は、マヤ暦においても「新しいサイクルの始まり」を告げており、これまでの準備が花開く運命的な一年となるでしょう。",
-        luckyColor: "ロイヤルブルー & ゴールド",
+    try {
+      // Use Real Calculation Logic
+      const fortune = calculateFortune(data.birthDate, data.birthTime);
 
-        // 1. Western
-        western: {
-          sunSign: "太陽：水瓶座",
-          moonSign: "月：蠍座",
-          ascendant: "ASC：射手座",
-          description: "独創的（水瓶）でありながら、深い情念（蠍）を秘めています。ASC射手座により、自由で哲学的な第一印象を与えます。"
-        },
-        // 2. Animal
-        animalFortune: {
-          animal: "ペガサス",
-          surface: "華やかなこじか",
-          hidden: "波乱に満ちたペガサス",
-          description: "束縛を嫌う天才肌。直感だけで行動しても成功する稀有なタイプです。"
-        },
-        // 3. Shukuyo
-        shukuyo: {
-          innName: "昴宿 (すばるぼし)",
-          group: "剛柔宿",
-          relation: "名誉と品格の星",
-          detail: "27宿の貴族。芸術や学問で名声を博しますが、物質的な執着は薄いです。"
-        },
-        // 4. Sanmeigaku
-        sanmeigaku: {
-          mainStar: "鳳閣星 (ほうかくせい)",
-          tenchuseatsu: "戌亥天中殺",
-          description: "自然体で生きる表現者。戌亥天中殺のため、家系から離れて独自の道を切り拓くことで運が開けます。"
-        },
-        // 5. Four Pillars
-        fourPillars: {
-          dayMaster: "甲 (きのえ) - 大樹",
-          strength: "身強",
-          description: "真っ直ぐに伸びる大樹のように、曲がったことが嫌いな正義の人。挫折を知ることで真のリーダーとなります。"
-        },
-        // 6. Indian
-        indian: {
-          nakshatra: "アシュヴィニー (Ashwini)",
-          lord: "ケートゥ (Ketu)",
-          description: "スピードと癒しの力を持つ「馬の頭」。医療やヒーリング、または最先端技術に適性があります。"
-        },
-        // 7. Mayan
-        mayan: {
-          kin: "KIN 1",
-          solarSeal: "赤い竜 (Imix)",
-          tone: "磁気の音 (1)",
-          description: "誕生の力、創始のエネルギー。物事をゼロから生み出す原動力を持ったリーダーです。"
-        },
-        // 8. Nine Star Ki
-        nineStar: {
-          honmei: "一白水星",
-          getsumei: "四緑木星",
-          description: "水のように柔軟で、どんな環境にも適応します。知性的で思慮深く、晩年になるほど運気が上昇します。"
-        },
-        // 9. Zi Wei Dou Shu
-        ziwei: {
-          mainStar: "紫微星 (しびせい)",
-          palace: "命宮",
-          description: "帝王の星。尊厳とリーダーシップを持ち、周囲の人ごみを統率する能力が備わっています。"
-        },
-        // 10. Numerology
-        numerology: {
-          lifePath: "LP 33 (マスターナンバー)",
-          destiny: "D 6",
-          description: "規格外の愛と奉仕の人。常識の枠に収まらないスケールの大きさで、人類全体に貢献する使命を持ちます。"
-        },
-        // 11. I Ching
-        iching: {
-          hexagram: "乾為天 (けんいてん)",
-          meaning: "龍が天を舞う、最強の運気。迷わず進むことで大成します。"
-        },
-        // 12. Teiougaku
-        teiougaku: {
-          archetype: "創業者型",
-          strategy: "0から1を生み出すカリスマ性で組織を牽引する。参謀役を置くことが成功の鍵。"
-        },
+      // Simulate "Processing" feel
+      setTimeout(() => {
+        setResult({
+          ...fortune,
+          compatibility: {
+            bestMatchSign: "獅子座", // TODO: Calc based on Sun Sign
+            score: 98,
+            description: "あなたを導く光となる存在です。"
+          }
+        });
+        setLoading(false);
+      }, 1500);
 
-        compatibility: {
-          bestMatchSign: "獅子座",
-          score: 98,
-          description: "お互いのビジョンを共有できるソウルメイトです。"
-        }
-      });
+    } catch (e) {
+      console.error(e);
       setLoading(false);
-    }, 2500);
+    }
   };
 
   return (
